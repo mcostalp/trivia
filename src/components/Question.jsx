@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { updateScore, countAnswered } from '../redux/actions';
-import './Question.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { updateScore, countAnswered } from "../redux/actions";
+import "./Question.css";
 
 const RANDOM = 0.5;
 const ONE_SECOND = 1000;
@@ -36,8 +36,9 @@ class Question extends Component {
         answered: false,
         timer: 30,
         isDisable: false,
-        answers: [...question.incorrect_answers, question.correct_answer]
-          .sort(() => RANDOM - Math.random()),
+        answers: [...question.incorrect_answers, question.correct_answer].sort(
+          () => RANDOM - Math.random()
+        ),
       });
     }
   }
@@ -65,33 +66,29 @@ class Question extends Component {
     const { question } = this.props;
     const { isDisable, answered, answers } = this.state;
     return (
-      <div>
-        <h3 data-testid="question-category">
-          {question && question.category}
-        </h3>
-        <p data-testid="question-text">
-          {question && question.question}
-        </p>
+      <div className="flex flex-col gap-3">
+        <h3 data-testid="question-category">{question && question.category}</h3>
+        <p data-testid="question-text">{question && question.question}</p>
         {answers.length > 0 && (
           <div data-testid="answer-options">
-            { answers.map((answer, index) => {
+            {answers.map((answer, index) => {
               const isCorrect = answer === question.correct_answer;
-              const correctness = isCorrect ? 'correct' : 'wrong';
+              const correctness = isCorrect ? "correct" : "wrong";
               return (
                 <button
-                  key={ index }
+                  key={index}
                   type="button"
-                  className={ answered ? correctness : 'not-answered' }
-                  onClick={ () => this.checkAnswer(answer) }
-                  data-testid={ isCorrect ? 'correct-answer' : 'wrong-answer' }
-                  disabled={ isDisable }
+                  className={answered ? correctness : "not-answered"}
+                  onClick={() => this.checkAnswer(answer)}
+                  data-testid={isCorrect ? "correct-answer" : "wrong-answer"}
+                  disabled={isDisable}
                 >
                   {answer}
                 </button>
               );
             })}
           </div>
-        ) }
+        )}
       </div>
     );
   }

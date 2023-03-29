@@ -1,25 +1,23 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Header extends Component {
   render() {
     const { name, gravatar, score } = this.props;
     return (
-      <header>
+      <header className="flex items-center justify-between text-2xl mb-10 p-4 bg-orange-600 rounded-xl text-white">
         <div>
           <img
-            src={ gravatar }
+            src={gravatar}
             alt="user gravatar"
             data-testid="header-profile-picture"
           />
-          <p data-testid="header-player-name">{name}</p>
         </div>
         <div>
+          <p data-testid="header-player-name">{name}</p>
           <p data-testid="header-score">{score}</p>
         </div>
-        <Link data-testid="btn-settings" to="/settings">Configurações</Link>
       </header>
     );
   }

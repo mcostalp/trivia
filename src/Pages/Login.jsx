@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchToken } from '../helpers/triviaApi';
-import { userLogin } from '../redux/actions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchToken } from "../helpers/triviaApi";
+import { userLogin } from "../redux/actions";
 
 class Login extends Component {
   state = {
-    nameInput: '',
-    emailInput: '',
+    nameInput: "",
+    emailInput: "",
     isDisabled: true,
   };
 
   redirectToSettings = () => {
     const { history } = this.props;
-    history.push('/settings');
+    history.push("/settings");
   };
 
   fetchButtonSubmit = async (event) => {
@@ -21,14 +21,15 @@ class Login extends Component {
     const { nameInput, emailInput } = this.state;
     event.preventDefault();
     const response = await fetchToken();
-    localStorage.setItem('token', response.token);
+    localStorage.setItem("token", response.token);
     dispatch(userLogin({ name: nameInput, email: emailInput }));
-    history.push('/game');
+    history.push("/game");
   };
 
   checkButton = () => {
     const { nameInput, emailInput } = this.state;
-    const validator = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})+$/;
+    const validator =
+      /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})+$/;
 
     const check = [
       nameInput.length > 0,
@@ -50,14 +51,7 @@ class Login extends Component {
   render() {
     const { nameInput, emailInput, isDisabled } = this.state;
     return (
-      <div>
-        <button
-          type="button"
-          data-testid="btn-settings"
-          onClick={ this.redirectToSettings }
-        >
-          Configurações
-        </button>
+      <div className="shadow-lg p-4 bg-orange-300 rounded-2xl">
         <form className="login-container">
           <label htmlFor="nameInput">
             <p>Nome</p>
@@ -65,9 +59,9 @@ class Login extends Component {
               type="text"
               name="nameInput"
               id="nameInput"
-              value={ nameInput }
+              value={nameInput}
               data-testid="input-player-name"
-              onChange={ this.changeHandler }
+              onChange={this.changeHandler}
             />
           </label>
           <label htmlFor="emailInput">
@@ -76,16 +70,17 @@ class Login extends Component {
               type="text"
               name="emailInput"
               id="emailInput"
-              value={ emailInput }
+              value={emailInput}
               data-testid="input-gravatar-email"
-              onChange={ this.changeHandler }
+              onChange={this.changeHandler}
+              className=""
             />
           </label>
           <button
             type="submit"
             data-testid="btn-play"
-            disabled={ isDisabled }
-            onClick={ this.fetchButtonSubmit }
+            disabled={isDisabled}
+            onClick={this.fetchButtonSubmit}
           >
             Play
           </button>

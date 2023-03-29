@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
-import { fetchQuestions } from '../helpers/triviaApi';
-import Question from '../components/Question';
-import { nextRound } from '../redux/actions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import Header from "../components/Header";
+import { fetchQuestions } from "../helpers/triviaApi";
+import Question from "../components/Question";
+import { nextRound } from "../redux/actions";
 
 const ERROR_CODE = 3;
 class GamePage extends Component {
@@ -15,18 +15,18 @@ class GamePage extends Component {
 
   async componentDidMount() {
     const { history } = this.props;
-    const tokenLocalStorage = localStorage.getItem('token');
+    const tokenLocalStorage = localStorage.getItem("token");
     const data = await fetchQuestions(tokenLocalStorage);
     if (data.response_code === ERROR_CODE) {
-      localStorage.setItem('token', '');
-      history.push('/');
+      localStorage.setItem("token", "");
+      history.push("/");
     } else {
       this.setState({
         questions: data.results,
       });
     }
-    if (!JSON.parse(localStorage.getItem('ranking'))) {
-      localStorage.setItem('ranking', JSON.stringify([]));
+    if (!JSON.parse(localStorage.getItem("ranking"))) {
+      localStorage.setItem("ranking", JSON.stringify([]));
     }
   }
 
@@ -40,26 +40,22 @@ class GamePage extends Component {
     const { questions } = this.state;
     const { game } = this.props;
     return (
-      <>
-        { game.round >= maxRounds && <Redirect to="/feedback" /> }
+      <div className="w-80 pb-4 px-4 bg-orange-300 rounded-xl">
+        {game.round >= maxRounds && <Redirect to="/feedback" />}
         <Header />
-        <section>
-          {questions && (
-            <Question
-              question={ questions[game.round] }
-            />
-          )}
+        <section className="border-t-white text-lg flex justify-center text-center">
+          {questions && <Question question={questions[game.round]} />}
         </section>
-        { game.countAnswered > game.round && (
+        {game.countAnswered > game.round && (
           <button
             type="button"
-            onClick={ () => this.dispatchNextRound() }
+            onClick={() => this.dispatchNextRound()}
             data-testid="btn-next"
           >
             Next
           </button>
         )}
-      </>
+      </div>
     );
   }
 }
