@@ -8,7 +8,10 @@ import Ranking from "./Pages/Ranking";
 
 export default function App() {
   return (
-    <div className="flex w-screen h-screen justify-center items-center bg-gradient-to-r from-slate-400 to-slate-700">
+    <div className="flex w-screen flex-col gap-10 h-full justify-center items-center bg-gradient-to-r from-slate-400 to-slate-700">
+      <h2 className="text-4xl bg-slate-900 text-white p-4 rounded-3xl shadow-md shadow-white">
+        Trivia Game
+      </h2>
       <Switch>
         <Route exact path="/trivia" component={Login} />
         <Route path="/game" component={GamePage} />

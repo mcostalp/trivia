@@ -70,7 +70,10 @@ class Question extends Component {
         <h3 data-testid="question-category">{question && question.category}</h3>
         <p data-testid="question-text">{question && question.question}</p>
         {answers.length > 0 && (
-          <div data-testid="answer-options">
+          <div
+            data-testid="answer-options"
+            className="w-full flex flex-col gap-2"
+          >
             {answers.map((answer, index) => {
               const isCorrect = answer === question.correct_answer;
               const correctness = isCorrect ? "correct" : "wrong";
@@ -78,7 +81,9 @@ class Question extends Component {
                 <button
                   key={index}
                   type="button"
-                  className={answered ? correctness : "not-answered"}
+                  className={`w-full ${
+                    answered ? correctness : "not-answered"
+                  }`}
                   onClick={() => this.checkAnswer(answer)}
                   data-testid={isCorrect ? "correct-answer" : "wrong-answer"}
                   disabled={isDisable}

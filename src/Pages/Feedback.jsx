@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Header from '../components/Header';
-import { newGame } from '../redux/actions';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Header from "../components/Header";
+import { newGame } from "../redux/actions";
 
 class Feedback extends React.Component {
   componentDidMount() {
@@ -17,45 +17,49 @@ class Feedback extends React.Component {
   handlePlayAgainClick = () => {
     const { history, dispatch } = this.props;
     dispatch(newGame());
-    history.push('/');
+    history.push("/game");
   };
 
   handleRankingClick = () => {
     const { history } = this.props;
-    history.push('/ranking');
+    history.push("/ranking");
   };
 
   saveToRanking = (player) => {
-    const currentRanking = JSON.parse(localStorage.getItem('ranking'));
-    localStorage.setItem('ranking', JSON.stringify([...currentRanking || [], player]));
+    const currentRanking = JSON.parse(localStorage.getItem("ranking"));
+    localStorage.setItem(
+      "ranking",
+      JSON.stringify([...(currentRanking || []), player])
+    );
   };
 
   render() {
     const { player } = this.props;
     const goodScore = 3;
     return (
-      <div data-testid="feedback-page">
+      <div
+        data-testid="feedback-page"
+        className="flex flex-col gap-3 w-80 pb-4 px-4 bg-orange-300 rounded-xl shadow-md shadow-white"
+      >
         <Header />
         <h1>pagina de feedback</h1>
         <h3 data-testid="feedback-total-score">{player.score}</h3>
         <p data-testid="feedback-text">
-          { player.assertions < goodScore ? 'Could be better...' : 'Well Done!' }
+          {player.assertions < goodScore ? "Could be better..." : "Well Done!"}
         </p>
-        <p>
-          {'Acertou: '}
-        </p>
+        <p>{"Acertou: "}</p>
         <p data-testid="feedback-total-question">{player.assertions}</p>
         <button
           type="submit"
           data-testid="btn-play-again"
-          onClick={ this.handlePlayAgainClick }
+          onClick={this.handlePlayAgainClick}
         >
           Play Again
         </button>
         <button
           data-testid="btn-ranking"
           type="submit"
-          onClick={ this.handleRankingClick }
+          onClick={this.handleRankingClick}
         >
           Ranking
         </button>

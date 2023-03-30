@@ -40,7 +40,7 @@ class GamePage extends Component {
     const { questions } = this.state;
     const { game } = this.props;
     return (
-      <div className="w-80 pb-4 px-4 bg-orange-300 rounded-xl">
+      <div className="w-80 pb-4 px-4 bg-orange-300 rounded-xl shadow-md shadow-white">
         {game.round >= maxRounds && <Redirect to="/feedback" />}
         <Header />
         <section className="border-t-white text-lg flex justify-center text-center">

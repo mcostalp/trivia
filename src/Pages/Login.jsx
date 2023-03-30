@@ -51,7 +51,7 @@ class Login extends Component {
   render() {
     const { nameInput, emailInput, isDisabled } = this.state;
     return (
-      <div className="shadow-lg p-4 bg-orange-300 rounded-2xl">
+      <div className="shadow-md shadow-white p-4 bg-orange-300 rounded-2xl">
         <form className="login-container">
           <label htmlFor="nameInput">
             <p>Nome</p>
